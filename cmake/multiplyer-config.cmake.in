@@ -1,0 +1,54 @@
+# Multiplyer CMake config file
+#
+# This file sets the following variables:
+# Multiplyer_FOUND - Always TRUE.
+# Multiplyer_INCLUDE_DIRS - Directories containing the Multiplyer include files.
+# Multiplyer_IDL_DIRS - Directories containing the Multiplyer IDL files.
+# Multiplyer_LIBRARIES - Libraries needed to use Multiplyer.
+# Multiplyer_DEFINITIONS - Compiler flags for Multiplyer.
+# Multiplyer_VERSION - The version of Multiplyer found.
+# Multiplyer_VERSION_MAJOR - The major version of Multiplyer found.
+# Multiplyer_VERSION_MINOR - The minor version of Multiplyer found.
+# Multiplyer_VERSION_REVISION - The revision version of Multiplyer found.
+# Multiplyer_VERSION_CANDIDATE - The candidate version of Multiplyer found.
+
+message(STATUS "Found Multiplyer-@PROJECT_VERSION@")
+set(Multiplyer_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(Multiplyer_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(Multiplyer_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(Multiplyer_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(Multiplyer_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(Multiplyer_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(Multiplyer_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(Multiplyer_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(Multiplyer_VERSION @PROJECT_VERSION@)
+set(Multiplyer_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(Multiplyer_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(Multiplyer_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(Multiplyer_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
