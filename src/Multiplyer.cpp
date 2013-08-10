@@ -120,6 +120,11 @@ RTC::ReturnCode_t Multiplyer::onDeactivated(RTC::UniqueId ec_id)
 
 RTC::ReturnCode_t Multiplyer::onExecute(RTC::UniqueId ec_id)
 {
+  if(m_inIn.isNew()) {
+    m_inIn.read();
+    m_out.data = m_factor * m_in.data;
+    m_outOut.write();
+  }
   return RTC::RTC_OK;
 }
 
